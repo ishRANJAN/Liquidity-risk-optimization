@@ -1,4 +1,6 @@
-# TIME STRUCTURE
+# parameters.py
+
+#TIME STRUCTURE
 T = 12  # 12-month planning horizon
 
 # FINANCIAL CONSTRAINTS
@@ -32,7 +34,7 @@ r_invest = 0.10 / 12   # 10% p.a. — short-term investment return
 # SIMULATION
 num_scenarios = 1000
 
-# ADVANCED FEATURES
+# --ADVANCED FEATURES--
 
 # Growth assumption
 growth_rate       = 0.01   # 1% monthly inflow growth
