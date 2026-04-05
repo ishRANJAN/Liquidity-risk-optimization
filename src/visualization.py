@@ -80,7 +80,10 @@ def plot_results():
              edgecolor="white", linewidth=0.4, alpha=0.85)
     ax3.axvline(df["total_borrow"].mean(), color=NAVY, linewidth=2,
                 linestyle="--", label=f"Mean = ₹{df['total_borrow'].mean():,.1f} Cr")
-    ax3.set_title("Distribution of Total Borrowing", fontweight="semibold")
+    ax3.set_title(
+    "Distribution of Total Borrowing\n(Near-zero confirms surplus regime — borrowing not required)",
+    fontweight="semibold",
+    fontsize=9)
     ax3.set_xlabel("Total Borrowing (₹ Crore)")
     ax3.set_ylabel("Frequency")
     ax3.legend(fontsize=8.5)
