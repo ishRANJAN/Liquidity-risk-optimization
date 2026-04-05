@@ -1,124 +1,70 @@
-# Liquidity-risk-optimization
+# Liquidity Risk Optimization under Cash-Flow Uncertainty
 
-# Liquidity Risk Optimization under Cash Flow Uncertainty
-
-## Overview
-
-Effective liquidity management is critical for firms operating under uncertain cash flows. This project develops a stochastic optimization framework to model how firms dynamically allocate resources between cash holdings, borrowing, and short-term investments while maintaining financial stability.
-
-The model integrates Monte Carlo simulation with linear programming to evaluate optimal liquidity strategies across multiple possible future scenarios. Risk is quantified using Conditional Value at Risk (CVaR), enabling analysis of tail outcomes rather than just expected performance.
+**Stochastic Programming · Monte Carlo Simulation · CVaR Risk Control**
+**Calibrated to Infosys FY23–24 · RBI interest rates · 1,000 scenarios · 12-month horizon**
 
 ---
 
-## Core Contributions
+## What This Does
 
-* Developed a **multi-period stochastic liquidity model** simulating 1000 possible cash flow scenarios
-* Implemented a **linear optimization framework (PuLP)** for dynamic allocation decisions
-* Incorporated **real-world financial calibration (Infosys, ₹ Crore scale)**
-* Modeled uncertainty via **growth dynamics, cost structure, and shock scenarios**
-* Implemented **profit-based CVaR for tail risk evaluation**
-* Built a **6-panel analytical dashboard** for scenario, distribution, and risk visualization
-* Explored **risk-return trade-offs through investment allocation sensitivity**
+Firms face a continuous tradeoff: hold too much cash and forfeit returns; hold too little and risk insolvency. This project builds a stochastic optimization framework to determine the optimal dynamic policy for cash, borrowing, and investment under uncertain cash flows.
 
----
+**Pipeline:**
 
-## Methodology
+Monte Carlo Simulation → Linear Programming (PuLP) → CVaR Risk Measurement → Sensitivity Analysis → Risk–Return Frontier
 
-### 1. Stochastic Cash Flow Simulation
-
-* Generated 1000 scenarios over a 12-month horizon
-* Modeled inflows and outflows using probabilistic distributions
-* Incorporated:
-
-  * Revenue growth trends
-  * Fixed vs variable cost structure
-  * Adverse demand shocks
+For full methodology, mathematical formulation, and detailed findings, see the `report/` directory.
 
 ---
 
-### 2. Optimization Model
+## Key Results
 
-Formulated a multi-period linear programming model:
+| Metric                | Value     |
+| --------------------- | --------- |
+| E[Profit]             | ₹332.6 Cr |
+| VaR₉₅                 | ₹190.3 Cr |
+| CVaR₉₅                | ₹153.8 Cr |
+| Shortfall Probability | < 1%      |
 
-* Decision Variables:
-
-  * Cash balance
-  * Borrowing
-  * Investment
-
-* Objective:
-  Maximize net returns:
-  (Investment returns − Borrowing costs)
-
-* Constraints:
-
-  * Cash flow continuity
-  * Minimum liquidity requirement
-  * Borrowing limits
+The model operates in a **surplus regime** — borrowing is near-zero across scenarios, and surplus capital is consistently deployed into short-term investments. Even in the worst 5% of scenarios, the firm remains profitable.
 
 ---
 
-### 3. Risk Modeling
+## Reproducing the Results
 
-* Defined **loss as negative profit**
-* Computed:
+```bash
+pip install -r requirements.txt
 
-  * Value at Risk (VaR)
-  * Conditional Value at Risk (CVaR)
-* Evaluated tail-risk behavior across simulated scenarios
-
----
-
-### 4. Visualization & Analysis
-
-* Profit distribution with VaR and CVaR markers
-* Cash flow uncertainty via scenario fan charts
-* Borrowing and investment behavior across scenarios
-* Risk sensitivity across confidence levels
-* Risk-return frontier (expected profit vs tail risk)
-
----
-
-## Key Insights
-
-* The model operates in a **surplus regime**, where operating cash flows are sufficient to meet liquidity constraints in most scenarios
-* Borrowing is rarely required and appears only under extreme shock conditions
-* Excess liquidity is consistently deployed into short-term investments
-* Even in lower-tail scenarios, profitability remains positive, indicating strong structural resilience
-* Risk-return exploration shows the expected trade-off between higher investment exposure and increased tail risk
-
----
-
-## Project Structure
-
+cd src
+python3 simulation.py
+python3 optimization.py
+python3 risk.py
+python3 visualization.py
 ```
-data/       → simulated cash flow scenarios  
-src/        → simulation, optimization, risk, visualization  
-results/    → outputs, dashboard, and plots  
-report/     → detailed documentation  
+
+Or run:
+
+```bash
+jupyter notebook
+```
+
+and open `analysis.ipynb` for an interactive walkthrough.
+
+---
+
+## Structure
+
+```text
+src/          → simulation, optimization, risk, visualization, parameters
+data/         → generated scenario data (1,000 × 12)
+results/      → dashboard.png, risk_return_frontier.png, raw outputs
+report/       → full academic documentation
+analysis.ipynb
+requirements.txt
 ```
 
 ---
 
 ## Tech Stack
 
-* Python
-* NumPy / Pandas
-* PuLP (Linear Programming)
-* Matplotlib
-
----
-
-## Future Work
-
-* Integrate CVaR directly into optimization for true risk-aware decision making
-* Extend to multi-period stochastic programming with scenario trees
-* Incorporate dynamic interest rates and macroeconomic shocks
-* Build an interactive dashboard (Streamlit / Plotly Dash)
-
----
-
-## Author
-
-Ishita Ranjan
-
+Python · NumPy · Pandas · PuLP · Matplotlib · SciPy · Jupyter
